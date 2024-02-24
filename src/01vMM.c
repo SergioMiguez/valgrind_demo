@@ -14,30 +14,38 @@ void multiply_matrices(int A[N][N], int B[N][N], int result[N][N]) {
     }
 }
 
+void initialize_matrix(int matrix[N][N]) {
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            matrix[i][j] = rand() % 10;
+        }
+    }
+}
+
+void display_matrix(int matrix[N][N]) {
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < N; ++j) {
+            printf("%d\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main() {
     int A[N][N];
     int B[N][N];
     int result[N][N];
 
     // Initialize matrices A and B
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            A[i][j] = rand() % 10;
-            B[i][j] = rand() % 10;
-        }
-    }
+    initialize_matrix(A);
+    initialize_matrix(B);
 
     // Multiply matrices
     multiply_matrices(A, B, result);
 
     // Display the result matrix (for demonstration purposes)
     printf("Result matrix:\n");
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            printf("%d\t", result[i][j]);
-        }
-        printf("\n");
-    }
+    display_matrix(result);
 
     return 0;
 }

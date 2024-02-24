@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <valgrind/callgrind.h>
 
 #define N 100
 #define BLOCK_SIZE 10
 
 void multiply_matrices(int A[N][N], int B[N][N], int result[N][N]) {
+    CALLGRIND_START_INSTRUMENTATION;
     for (int i = 0; i < N; i += BLOCK_SIZE) {
         for (int j = 0; j < N; j += BLOCK_SIZE) {
             for (int k = 0; k < N; k += BLOCK_SIZE) {
@@ -19,6 +21,7 @@ void multiply_matrices(int A[N][N], int B[N][N], int result[N][N]) {
             }
         }
     }
+    CALLGRIND_STOP_INSTRUMENTATION;
 }
 
 int main() {

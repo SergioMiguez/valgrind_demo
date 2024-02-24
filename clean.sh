@@ -8,3 +8,7 @@
 [ -f valgrind_cachegrind/01vMM_cachegrind_output.out ] && rm valgrind_cachegrind/01vMM_cachegrind_output.out
 [ -f valgrind_cachegrind/02vMM_cachegrind_output.out ] && rm valgrind_cachegrind/02vMM_cachegrind_output.out
 [ -f valgrind_cachegrind/03vMM_cachegrind_output.out ] && rm valgrind_cachegrind/03vMM_cachegrind_output.out
+
+[ -f valgrind_cachegrind/01vMM_callgrind_output.out ] && rm valgrind_cachegrind/01vMM_callgrind_output.out
+[ -f valgrind_cachegrind/02vMM_callgrind_output.out ] && rm valgrind_cachegrind/02vMM_callgrind_output.out
+[ -f valgrind_cachegrind/03vMM_callgrind_output.out ] && rm valgrind_cachegrind/03vMM_callgrind_output.out
