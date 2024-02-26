@@ -2,24 +2,54 @@
 
 name_cache="vMM_cachegrind_output.out"
 name_call="vMM_callgrind_output.out"
+log="_cache_log.out"
 
 cd builds
 
+for n in {01..03}
+do
+    # Getting cachegrind files
+    valgrind --tool=cachegrind --cache-sim=yes --branch-sim=yes --instr-at-start=yes \
+        --I1=32768,8,64 \
+        --D1=32768,8,64 \
+        --LL=2097152,16,64 \
+        --log-file=$n$log --cachegrind-out-file=${n}$name_cache ./${n}vMM
 
-valgrind --tool=cachegrind --cachegrind-out-file=01$name_cache ./01vMM
-valgrind --tool=cachegrind --cachegrind-out-file=02$name_cache ./02vMM
-valgrind --tool=cachegrind --cachegrind-out-file=03$name_cache ./03vMM
+        # --I1=32768,8,64 = 32KB, 8-way, 64B
+        # --D1=32768,8,64 = 32KB, 8-way, 64B
+        # --LL=2097152,16,64 = 2MB, 16-way, 64B
 
-valgrind --tool=callgrind --callgrind-out-file=01$name_call ./01vMM
-valgrind --tool=callgrind --callgrind-out-file=02$name_call ./02vMM
-valgrind --tool=callgrind --callgrind-out-file=03$name_call ./03vMM
+    # Getting callgrind files
+    valgrind --tool=callgrind --callgrind-out-file=${n}$name_call ./${n}vMM
 
-mv 01$name_cache ../valgrind_cachegrind
-mv 02$name_cache ../valgrind_cachegrind
-mv 03$name_cache ../valgrind_cachegrind
+    # Moving files to correct locations
+    mv ${n}$name_cache ../valgrind_cachegrind
+    mv ${n}$name_call ../valgrind_callgrind
+    mv ${n}$log ../valgrind_cachegrind/logs
+done
 
-mv 01$name_call ../valgrind_cachegrind
-mv 02$name_call ../valgrind_cachegrind
-mv 03$name_call ../valgrind_cachegrind
+
+# valgrind --tool=cachegrind --cache-sim=yes --branch-sim=yes --log-file=$n$log --cachegrind-out-file=${n}$name_cache ./${n}vMM
+# valgrind --tool=cachegrind --cache-sim=yes --branch-sim=yes --log-file=$n$log --cachegrind-out-file=${n}$name_cache ./${n}vMM
+# valgrind --tool=cachegrind --cache-sim=yes --branch-sim=yes --log-file=$n$log --cachegrind-out-file=${n}$name_cache ./${n}vMM
+
+
+# valgrind --tool=callgrind --callgrind-out-file=01$name_call ./01vMM
+# valgrind --tool=callgrind --callgrind-out-file=02$name_call ./02vMM
+# valgrind --tool=callgrind --callgrind-out-file=03$name_call ./03vMM
+
+# mv 01$name_cache ../valgrind_cachegrind
+# mv 02$name_cache ../valgrind_cachegrind
+# mv 03$name_cache ../valgrind_cachegrind
+
+# mv 01$log ../valgrind_cachegrind/logs
+# mv 02$name_cache ../valgrind_cachegrind
+# mv 03$name_cache ../valgrind_cachegrind
+
+# mv 01$name_call ../valgrind_callgrind
+# mv 02$name_call ../valgrind_callgrind
+# mv 03$name_call ../valgrind_callgrind
+
+# mv 01_cache_log.out ../logs
 
 cd ..
