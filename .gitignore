@@ -1,3 +1,4 @@
 builds/*
 valgrind_cachegrind/*
 valgrind_callgrind/*
+.vscode/*
